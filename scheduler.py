@@ -1,7 +1,6 @@
 import schedule
 import time
 import threading
-from typing import Any, Dict, List
 from db_handler import NewsDatabaseHandler
 from scraper import NewsScraper
 
@@ -62,9 +61,9 @@ class NewsScheduler:
             return
             
         schedule.clear()
-        # Cronjob 1: Chạy định kỳ vào lúc 08:00 AM hàng ngày để lấy link bài mới
-        schedule.every().day.at("08:00").do(self.cronjob_1_fetch_links)
-        # Cronjob 2: Chạy định kỳ 30 phút một lần để xử lý sâu nội dung các link tìm được
+        # Cronjob 1: Chạy định kỳ 15 giây một lần để lấy link bài mới
+        schedule.every(15).seconds.do(self.cronjob_1_fetch_links)
+        # Cronjob 2: Chạy định kỳ 10 giây một lần để xử lý sâu nội dung các link tìm được
         schedule.every(10).seconds.do(self.cronjob_2_fetch_content)
         
         self.is_running = True
